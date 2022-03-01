@@ -1,4 +1,4 @@
-import knight
+from projects import knight
 
 
 def test_normal():
