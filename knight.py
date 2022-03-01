@@ -23,28 +23,33 @@ def moves(n: int, start_row: int, start_column: int, end_row: int, end_column: i
     Returns:
         int: How many moves it takes the knight to get to its destination. Returns -1 if unreachable.
     """
-    # Deal with trivial case
+    # Deal with trivial case where knight spawns on ending.
     if start_row == end_row and start_column == end_column:
         return 0
 
-    possible_moves = ((2,1), (1,2), (-1,2), (-2,1), (-2,-1), (-1,-2), (1,-2), (2,-1))
+    possible_moves = ((2,1), (1,2), (-1,2), (-2,1), (-2,-1), (-1,-2), (1,-2), (2,-1))   # Possible moves knight can make from any spot
     queue = deque()
-    queue.append((start_row, start_column, True, 0))  # Include that bishop is alive
-    # Let visited be a set. Mark start as visited and include alive-status
-    visited = set([(start_row, start_column, True)])
+    queue.append((start_row, start_column, True, 1))    # Stores each turn of the game.
+    visited = set([(start_row, start_column, True)])    # Stores visited spots and whether bishop was alive
     while queue:
         current_row, current_column, bishop_alive, step_count = queue.popleft()
         for row_change, column_change in possible_moves:
             new_row = current_row + row_change
             new_column = current_column + column_change
-            if new_row == end_row and new_column == end_column:  # When found, don't bother about queuing it
-                return step_count + 1 # No need for a res variable 
-            # Update alive-state, just for current path
+
+            # When we find the final move, don't bother queuing it.
+            if new_row == end_row and new_column == end_column:
+                return step_count
+
+            # Determine whether bishop is alive in this path.
             bishop_alive_in_current_path = bishop_alive and (new_row != bishop_row or new_column != bishop_column)
-            # Neither new_row/new_column should be negative
+
+            # If new row/column are inside the board, and game state hasn't been visited before, and either the bishop isn't alive or
+            # the distance between the new row/bishop row isn't equal to the distance between the new column/bishop column,
+            # then add move to queue and add game state to visited.
             if 0 <= new_row < n and 0 <= new_column < n and (new_row, new_column, bishop_alive_in_current_path) not in visited and (
                     not bishop_alive_in_current_path or abs(new_row - bishop_row) != abs(new_column - bishop_column)):
-                queue.append((new_row, new_column, bishop_alive_in_current_path, step_count + 1))  # Append alive-status too
-                visited.add((new_row, new_column, bishop_alive_in_current_path))  # Visited should depend on alive
+                queue.append((new_row, new_column, bishop_alive_in_current_path, step_count + 1))
+                visited.add((new_row, new_column, bishop_alive_in_current_path))
 
     return -1
