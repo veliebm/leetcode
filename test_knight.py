@@ -4,6 +4,7 @@ import knight
 def test_normal():
     """Test normal, standard case."""
     assert knight.moves(4, 0, 0, 1, 1, 1, 0) == 4
+    assert knight.moves(7, 0, 0, 4, 3, 3, 4) == 5
 
 
 def test_unreachable():
