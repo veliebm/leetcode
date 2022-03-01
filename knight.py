@@ -40,11 +40,11 @@ def moves(n: int, start_row: int, start_column: int, end_row: int, end_column: i
             if new_row == end_row and new_column == end_column:  # When found, don't bother about queuing it
                 return step_count + 1 # No need for a res variable 
             # Update alive-state, just for current path
-            stillalive = bishop_alive and (new_row != bishop_row or new_column != bishop_column)
+            bishop_alive_in_current_path = bishop_alive and (new_row != bishop_row or new_column != bishop_column)
             # Neither new_row/new_column should be negative
-            if 0 <= new_row < n and 0 <= new_column < n and (new_row, new_column, stillalive) not in visited and (
-                    not stillalive or abs(new_row - bishop_row) != abs(new_column - bishop_column)):
-                queue.append((new_row, new_column, stillalive, step_count + 1))  # Append alive-status too
-                visited.add((new_row, new_column, stillalive))  # Visited should depend on alive
+            if 0 <= new_row < n and 0 <= new_column < n and (new_row, new_column, bishop_alive_in_current_path) not in visited and (
+                    not bishop_alive_in_current_path or abs(new_row - bishop_row) != abs(new_column - bishop_column)):
+                queue.append((new_row, new_column, bishop_alive_in_current_path, step_count + 1))  # Append alive-status too
+                visited.add((new_row, new_column, bishop_alive_in_current_path))  # Visited should depend on alive
 
     return -1
