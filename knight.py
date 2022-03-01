@@ -44,9 +44,8 @@ def moves(n: int, start_row: int, start_column: int, end_row: int, end_column: i
             # Determine whether bishop is alive in this path.
             bishop_alive_in_current_path = bishop_alive and (new_row != bishop_row or new_column != bishop_column)
 
-            # If new row/column are inside the board, and game state hasn't been visited before, and either the bishop isn't alive or
-            # the distance between the new row/bishop row isn't equal to the distance between the new column/bishop column,
-            # then add move to queue and add game state to visited.
+            # If new row/column are inside the board, and game state hasn't been visited before, and either the bishop is dead or
+            # the knight isn't on its diagonal, then add move to queue and add game state to visited.
             if 0 <= new_row < n and 0 <= new_column < n and (new_row, new_column, bishop_alive_in_current_path) not in visited and (
                     not bishop_alive_in_current_path or abs(new_row - bishop_row) != abs(new_column - bishop_column)):
                 queue.append((new_row, new_column, bishop_alive_in_current_path, step_count + 1))
