@@ -7,6 +7,7 @@ def test_normal():
 
 
 def generate_test(input, output):
+    """Generate test for an input and output."""
     result = subprocess.run("python ./preorder.py".split(), input=input, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     assert result.returncode == 0
     assert result.stdout == output
