@@ -50,15 +50,14 @@ https://www.hackerrank.com/challenges/one-week-preparation-kit-tree-huffman-deco
 
 class Node:
     def __init__(self, freq,data):
-        self.freq= freq
-        self.data=data
+        self.freq = freq
+        self.data = data
         self.left = None
         self.right = None
-"""        
-
-# Enter your code here. Read input from STDIN. Print output to STDOUT
+"""
+# Example str for ABACA: 1001011
 def decodeHuff(root, s):
-	pass
+    pass
 # --------- END SOLUTION ----------
 ip = input()
 freq = {}#maps each character to its frequency
