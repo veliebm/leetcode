@@ -42,8 +42,16 @@ self.left (the left child of the node)
 self.right (the right child of the node)
 self.info (the value of the node)
 """
+from collections import deque
 def preOrder(root):
-    pass
+    stack = deque([root])
+    while stack:
+        current = stack.pop()
+        print(f"{current.info} ", end="")
+        if current.right:
+            stack.append(current.right)
+        if current.left:
+            stack.append(current.left)
 # --------- END SOLUTION --------------
 
 
