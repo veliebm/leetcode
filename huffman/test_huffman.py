@@ -7,6 +7,7 @@ testdata = [
     ("ABACA", "ABACA"),
     ("Rumpelstiltskin", "Rumpelstiltskin"),
     ("howmuchwoodwouldawoodchuckchuckifawoodchuckcouldchuckwood?", "howmuchwoodwouldawoodchuckchuckifawoodchuckcouldchuckwood?"),
+    ("a", "a"),
 ]
 
 
