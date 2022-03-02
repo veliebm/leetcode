@@ -1,14 +1,20 @@
-import subprocess
+import sys
 
+def test_prompt(capsys, monkeypatch):
+    t = "6"
+    arr = "1 2 5 3 6 4"
+    stdout = "1 2 5 3 4 6 "
 
-def test_normal():
-    """Test a regular case."""
-    generate_test(input=b'6\n1 2 5 3 6 4\n\n', output=b'1 2 5 3 4 6 ')
+    def yield_input():
+        def get():
+            temp = yield_input.__dict__.get('previous', t)
+            yield_input.__dict__['previous'] = arr
+            return temp
+        return get()
 
-
-def generate_test(input, output):
-    """Generate test for an input and output."""
-    result = subprocess.run("python ./preorder.py".split(), input=input, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    assert result.returncode == 0
-    assert result.stdout == output
-    assert result.stderr == b''
+    with monkeypatch.context() as m:
+        m.setattr("builtins.input", yield_input)
+        import preorder
+        del sys.modules["preorder"]
+        captured = capsys.readouterr()
+        assert captured.out == stdout
