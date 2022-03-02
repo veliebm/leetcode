@@ -1,18 +1,16 @@
 import sys
 from unittest.mock import Mock
+import pytest
 
 
-def test_cases(capsys, monkeypatch):
-    """Run all test cases."""
-    cases = [
-        ("6\n1 2 5 3 6 4", "1 2 5 3 4 6 ")
-    ]
-
-    for case in cases:
-        run_test(*case, capsys, monkeypatch)
+testdata = [
+    ("6\n1 2 5 3 6 4", "1 2 5 3 4 6 "),
+    ("15\n1 14 3 7 4 5 15 6 13 10 11 2 12 8 9", "1 14 3 2 7 4 5 6 13 10 8 9 11 12 15 "),
+]
 
 
-def run_test(stdin, stdout, capsys, monkeypatch):
+@pytest.mark.parametrize("stdin, stdout", testdata)
+def test_case(stdin, stdout, capsys, monkeypatch):
     """Test a case."""
     yield_input = Mock(side_effect=stdin.splitlines())
 
