@@ -55,9 +55,46 @@ class Node:
         self.left = None
         self.right = None
 """
-# Example str for ABACA: 1001011
+# S="1001011"
+# Processing the string from left to right.
+# S[0]='1' : we move to the right child of the root. We encounter a leaf node with value 'A'. We add 'A' to the decoded string.
+# We move back to the root.
+# 
+# S[1]='0' : we move to the left child. 
+# S[2]='0' : we move to the left child. We encounter a leaf node with value 'B'. We add 'B' to the decoded string.
+# We move back to the root.
+# 
+# S[3] = '1' : we move to the right child of the root. We encounter a leaf node with value 'A'. We add 'A' to the decoded string.
+# We move back to the root.
+# 
+# S[4]='0' : we move to the left child. 
+# S[5]='1' : we move to the right child. We encounter a leaf node with value C'. We add 'C' to the decoded string.
+# We move back to the root.
+# 
+#  S[6] = '1' : we move to the right child of the root. We encounter a leaf node with value 'A'. We add 'A' to the decoded string.
+# We move back to the root.
+# 
+# Decoded String = "ABACA"
+
+from collections import deque
 def decodeHuff(root, s):
-    pass
+    # Handle trivial case.
+    if len(s) == 1:
+        print(root.data, end="")
+        return
+    
+    # Handle regular cases.
+    stack = deque([root])
+    for character in s:
+        current = stack.pop()
+        children = {"1": current.right, "0": current.left}
+        child = children[character]
+        if child:
+            if child.data != "\x00":
+                print(child.data, end="")
+                stack.append(root)
+            else:
+                stack.append(child)
 # --------- END SOLUTION ----------
 ip = input()
 freq = {}#maps each character to its frequency
