@@ -84,17 +84,16 @@ def decodeHuff(root, s):
         return
     
     # Handle regular cases.
-    stack = deque([root])
+    current = root
     for character in s:
-        current = stack.pop()
         children = {"1": current.right, "0": current.left}
         child = children[character]
         if child:
             if child.data != "\x00":
                 print(child.data, end="")
-                stack.append(root)
+                current = root
             else:
-                stack.append(child)
+                current = child
 # --------- END SOLUTION ----------
 ip = input()
 freq = {}#maps each character to its frequency
