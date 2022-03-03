@@ -76,24 +76,18 @@ class Node:
 # 
 # Decoded String = "ABACA"
 
-from collections import deque
 def decodeHuff(root, s):
-    # Handle trivial case.
-    if len(s) == 1:
-        print(root.data, end="")
-        return
-    
-    # Handle regular cases.
     current = root
     for character in s:
-        children = {"1": current.right, "0": current.left}
-        child = children[character]
-        if child:
-            if child.data != "\x00":
-                print(child.data, end="")
-                current = root
-            else:
-                current = child
+        if character == "1" and current.right:
+            current = current.right
+        elif character =="0" and current.left:
+            current = current.left
+
+        if current.left == None and current.right == None:
+            print(current.data, end="")
+            current = root
+
 # --------- END SOLUTION ----------
 ip = input()
 freq = {}#maps each character to its frequency
