@@ -81,10 +81,10 @@ def decodeHuff(root, s):
     for character in s:
         if character == "1" and current.right:
             current = current.right
-        elif character =="0" and current.left:
+        elif character == "0" and current.left:
             current = current.left
 
-        if current.left == None and current.right == None:
+        if current.left is None and current.right is None:
             print(current.data, end="")
             current = root
 
