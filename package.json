@@ -20,7 +20,7 @@
     "url": "https://github.com/veliebm/leetcode/issues"
   },
   "homepage": "https://github.com/veliebm/leetcode#readme",
-  "dependencies": {
+  "devDependencies": {
     "eslint": "^8.11.0"
   }
 }
